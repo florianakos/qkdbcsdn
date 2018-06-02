@@ -253,6 +253,8 @@ class ForwardController(ControllerBase):
                 except ValueError:
                     inport1 = k
 
+        outport1=0
+        outport2=0
         sla_id = str(c["sla"])
         for k, v in self.ovs[ovs_src]["outport"].items():
             for k2, v2 in v.items():

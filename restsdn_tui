@@ -1,0 +1,73 @@
+#!/bin/bash
+
+printf "\nStarting Program - SDNBCQKD\n"
+
+CMD=restsdn
+
+HOST=localhost
+PORT=1234
+
+FILE=/tmp/sdnqkd1-$$
+ERROR=/tmp/sdnqkd-err-$$
+
+cleanup_exit() {
+	printf "Cleaning up temporary filed before shutdown..."
+    rm -f $FILE $ERROR
+    printf "\nProgram ready for shutdown.\n\n"
+    exit 0
+}
+
+function finish() {
+	printf "\n\nInterrupt signal received! Initiating showdown sequence!"
+	cleanup_exit
+}
+trap finish SIGINT
+
+#show banner in terminal for TUI, GUI and NET editions 
+cat banner.txt
+
+while true; do
+	#TEST to see if the Terminal version or the GUI version was called
+	if [ `basename $0` = "restsdn_tui" ]; then
+		read -p "Switch to: " ACTION
+
+	elif [ `basename $0` = "restsdn_gui" ]; then
+		which gdialog 1> /dev/null && DIALOG=gdialog || DIALOG=dialog 1> /dev/null
+		$DIALOG --inputbox "Switch to: " 30 60 2> $FILE 
+		ACTION=`cat $FILE`
+		
+	elif [ `basename $0` = "restsdn_net" ]; then
+		read -p "Switch to: " ACTION
+		CMD="nc $HOST $PORT"
+			
+	fi	
+	
+	# TEST INPUT TO SEE IF IT WAS A VALID INTEGER COMMAND
+	case ${ACTION#[-+]} in
+		# IT WAS NOT A VALID NUMBER
+		*[!0-9]* | '') 
+			printf "Please enter a valid number as seen in the instructions!\n"
+			;;
+		# IT WAS A VALID NUMBER
+		* ) 
+			# EXIT COMMAND DETECTED, CLEAN UP FILES AND EXIT PROGRAM
+			if [ $ACTION -eq 0 ] ;then
+
+				printf "\nExit command received, finishing program execution!\n"
+				cleanup_exit
+
+			# COMMAND 1 WAS RECEIVED, SEND REST REQUEST AND GO BACK TO WAIT FOR NEW COMMAND
+			elif [ $ACTION -eq 1 -o $ACTION -eq 2 ]; then
+
+				echo $ACTION | $CMD
+				printf "Channel switched to: %s\n" $ACTION
+
+			# INVALID COMMAND INTEGER WAS RECEIVED, GO BACK TO REQUEST NEW INPUT FROM USER...
+			else
+
+				printf "Invalid channel number. Please try again!\n"
+
+			fi
+			;;
+	esac
+done

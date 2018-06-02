@@ -1,0 +1,19 @@
+		===================== TOPOLOGY ======================
+		|                                                   |
+		|                   un-encrypted                    |
+		|   -----       -----    /\    -----      -----     |
+		|  |  N1 |-----| SW1 | <    > | SW2 |----|  N2 |    |
+		|   -----       -----    \/    -----      -----     |
+		|                  \    encr     /                  |
+		|                   \           /                   |
+		|                    \         /                    |
+		|                   -------------                   |
+		|                  |  SDN CTRL   |                  |
+		|                   -------------                   |
+		|                                                   |
+		=====================================================
+Please tell me which option you want to execute, by pressing the corresponding button:
+  [1] - Switch Channel to un-encrypted mode\n"
+  [2] - Switch channel to encrypted mode\n"
+  [0] - EXIT
+
