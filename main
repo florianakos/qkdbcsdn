@@ -18,8 +18,8 @@ echo "  |                                                   |"
 echo "  =====================================================\n"
 
 echo "Please tell me which option you want to execute, by pressing the corresponding button:"
-echo " [1] - Switch Channel to encrypted mode"
-echo " [2] - Switch channel to un-encrypted mode"
+echo " [1] - Switch Channel to un-encrypted mode"
+echo " [2] - Switch channel to encrypted mode"
 echo ""
 
 read -p 'Enter here: ' ACTION
@@ -32,6 +32,8 @@ elif [ $ACTION -eq 2 ]
 then 
 	echo "\nExecuting command to turn on encryption"
 	curl -X GET http://localhost:8080/channel/1/2
+else
+	echo "\nAction not supported!!!"
 fi
 
 
