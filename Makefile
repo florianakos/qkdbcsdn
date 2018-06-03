@@ -1,8 +1,8 @@
-install: restsdn_ui-hu.mo
+install: restsdn_tui-hu.mo
 	install restsdn restsdn_tui /usr/local/bin
 	which gdialog >/dev/null 2>&1 || install gdialog /usr/local/bin
 	grep -q "`cat restsdn.services`" /etc/services || cat restsdn.services >> /etc/services
-	install restsdn.xinetd /etc/xinetd.d/calc
+	install restsdn.xinetd /etc/xinetd.d/restsdn
 	ln -sf /usr/local/bin/restsdn_tui /usr/local/bin/restsdn_net
 	ln -sf /usr/local/bin/restsdn_tui /usr/local/bin/restsdn_gui
 	install restsdn_ui-hu.mo /usr/share/locale/hu/LC_MESSAGES/restsdn_ui.mo
