@@ -1,38 +1,23 @@
-# 
-ITMO Seminar Project
+## SDNQKD
 
-
-## Usage
-
-//TODO
-
-## TODO
-
-- localization
-- more testing
-
-
-# SDNQKD - ITMO University
-
-This repository contains my solution for the project proposed during Oleg Sadov's seminar about Free and Open Source software during the Erasmus Mundus PERCCOM Seminar in Saint Petersburg, Russia (2018.05.26-06.09).
+This repository contains my solution for the project proposed during Oleg Sadov's seminar about Free and Open Source software during the Erasmus Mundus PERCCOM Seminar in Saint Petersburg, Russia @ ITMO University (2018.05.26-06.09).
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+These instructions will get you a copy of the project up and running on your local machine.
 
 ### Prerequisites
 
 What things you need to install the software and how to install them:
 
 ```
-Python, Git, Ryu(SDN Controller)
+Python, Git, Ryu(SDN Controller), Bash
 ```
 
 ### Installing
 
 A step by step series of examples that tell you how to get a development env running
 
-Say what the step will be
 
 ```
 git clone https://github.com/florianakos/sdnbcqkd
