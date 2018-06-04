@@ -6,6 +6,8 @@ install:
 	ln -sf /usr/local/bin/restsdn_tui /usr/local/bin/restsdn_net
 	ln -sf /usr/local/bin/restsdn_tui /usr/local/bin/restsdn_gui
 	cp banner.txt /usr/local/etc
+	systemctl start xinetd
+	systemctl reload xinetd
 
 clone:
 	git clone https://github.com/florianakos/sdnbcqkd
