@@ -7,8 +7,6 @@ which restsdn 1> /dev/null
 if [ $? -ne 0 ]; then
 	echo "The 'restsdn' utility is missing, please fix it with make install!"
 	exit 1
-else
-	CMD=restsdn
 fi
 
 # Parameters for restsdn_net tool
@@ -50,36 +48,29 @@ while true; do
 		
 	elif [ `basename $0` = "restsdn_net" ]; then
 		read -p "Switch to: " ACTION
-		CMD="nc $HOST $PORT"
-			
+		if [ $ACTION -eq 0 ] ;then
+			cleanup_exit
+		fi
+		# execution for network enabled part was moved to this scope, 
+		# because return value of "nc localhost 1234" was always 0, 
+		# regardless of success of failure, so the logic for TUI 
+		# and GUI could not be used
+		echo $ACTION | `nc $HOST $PORT`
 	fi	
-	
-	# TEST INPUT TO SEE IF IT WAS A VALID INTEGER COMMAND
-	case ${ACTION#[-+]} in
-		# IT WAS NOT A VALID NUMBER
-		*[!0-9]* | '') 
-			printf "Please enter a valid number as seen in the instructions!\n"
-			;;
-		# IT WAS A VALID NUMBER
-		* ) 
-			# EXIT COMMAND DETECTED, CLEAN UP FILES AND EXIT PROGRAM
-			if [ $ACTION -eq 0 ] ;then
 
-				printf "\nExit command received, finishing program execution!\n"
-				cleanup_exit
+	if [ `basename $0` = "restsdn_tui" -o `basename $0` = "restsdn_gui" ]; then
 
-			# COMMAND 1 WAS RECEIVED, SEND REST REQUEST AND GO BACK TO WAIT FOR NEW COMMAND
-			elif [ $ACTION -eq 1 -o $ACTION -eq 2 ]; then
-
-				echo $ACTION | $CMD
-				printf "Channel switched to: %s\n" $ACTION
-
-			# INVALID COMMAND INTEGER WAS RECEIVED, GO BACK TO REQUEST NEW INPUT FROM USER...
-			else
-
-				printf "Invalid channel number. Please try again!\n"
-
-			fi
-			;;
-	esac
+		echo $ACTION | restsdn
+		result=$?
+		case $result in
+		0) # the restsdn script exited with 0, that means user wants to quit > do cleanup!
+			cleanup_exit ;;
+		1) # the restsdn script exited with 1, that means input was not a valid digit, let the user try again!
+			printf "Please enter a valid number as seen in the instructions!\n" ;;
+		2) # the restsdn script exited with 2, that means input was digit other than 1 or 2
+			printf "Invalid channel number. Please try again!\n" ;;
+		10) # the restsdn script exited with 10, that means the HTTP request was sent successfully
+			printf "Channel switched to: %s\n" $ACTION ;;
+		esac
+	fi
 done
