@@ -3,3 +3,5 @@ dialog.txt
 restsdn_gui
 restsdn_net
 Makefile.backup
+restsdn_tui.pot
+restsdn_tui-hu.po

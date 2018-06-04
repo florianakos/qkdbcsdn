@@ -5,6 +5,7 @@ install:
 	install restsdn.xinetd /etc/xinetd.d/restsdn
 	ln -sf /usr/local/bin/restsdn_tui /usr/local/bin/restsdn_net
 	ln -sf /usr/local/bin/restsdn_tui /usr/local/bin/restsdn_gui
+	cp banner.txt /usr/local/etc
 
 clone:
 	git clone https://github.com/florianakos/sdnbcqkd

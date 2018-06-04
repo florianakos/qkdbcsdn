@@ -33,7 +33,8 @@ function finish() {
 trap finish SIGINT
 
 #show banner in terminal for TUI, GUI and NET editions 
-cat banner.txt
+# cat banner.txt  /LOCAL VERSION/
+cat /usr/local/etc/banner.txt
 
 # Infinite loop to ask for user input on repeat
 while true; do
