@@ -2,6 +2,8 @@
 
 This repository contains my solution for the project proposed during Oleg Sadov's seminar about Free and Open Source software during the Erasmus Mundus PERCCOM Seminar in Saint Petersburg, Russia @ ITMO University (2018.05.26-06.09).
 
+Link to the [PROJECT](http://sdn.ifmo.ru/education/perccom/unix_linux/evaluations/2018).
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine.
