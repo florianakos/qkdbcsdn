@@ -44,7 +44,12 @@ while true; do
 
 	elif [ `basename $0` = "restsdn_gui" ]; then
 		which gdialog 1> /dev/null && DIALOG=gdialog || DIALOG=dialog 1> /dev/null
-		$DIALOG --inputbox "Switch to: " 30 60 2> $FILE 
+		$DIALOG --menu "Switch to: " 10 30 100 1 "Unencrypted channel" 2 "Encrypted channel"  2> $FILE 
+		DIAG_RES=$?
+		if [ $DIAG_RES -ne 0 ]; then
+			printf "\n\n Exit signal received, calling clenaup-function before exit!"
+			cleanup_exit
+		fi
 		ACTION=`cat $FILE`
 		
 	elif [ `basename $0` = "restsdn_net" ]; then
